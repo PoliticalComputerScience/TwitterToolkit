@@ -1,0 +1,1 @@
+* This is the directory for storing everything related to Sentiment Analysis in our project.
