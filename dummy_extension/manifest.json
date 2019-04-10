@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+
+  "name": "Alert first tweet",
+  "description": "This extension is trying to alert to console the first tweet",
+  "version": "1.0",
+
+  "browser_action": {
+   "default_icon": "pic.png"
+  },
+  "permissions": ["http://*/*","https://*/*"],
+
+   "content_scripts": [
+  {
+    "matches": ["https://twitter.com/*"],
+    "js": ["jquery.js", "content_script.js"],
+    "run_at": "document_end"
+
+  }
+]
+}
