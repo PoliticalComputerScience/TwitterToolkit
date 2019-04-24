@@ -13,19 +13,19 @@ def score():
                 "negative": 0,
                 "manipulation": 0,
                 "success": False}
-    url = extract_url(tweet)
-    if (url == None): #no URL was found
+    urls = extract_urls(tweet)
+    if (urls == []): #no URL was found
         return jsonify(response)
-    domain = get_domain(url)
-    response["domain"] = domain
+    domains = get_domains(urls)
     success = False
-    #query database for scores using domain and set scores/success accordingly
+    #query database for scores using domain and set scores/success accordingly for all links
     success = True #simulating successful database access
     if (success):
         response["success"] = True
+    response["domain"] = domains[0]
     response["negative"] = sentiment_negative(tweet)
     response["manipulation"] = sentiment_manipulation(tweet)
-    return jsonify(response)
+    return str(response)
 
 if __name__ == "__main__":
     app.run()

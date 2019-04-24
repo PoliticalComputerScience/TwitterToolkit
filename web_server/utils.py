@@ -5,22 +5,16 @@ import re
 Extracts the first url if the tweet contains one. Currently, urls
 must contain the protocol (http or https) in order to be recognized.
 """
-def extract_url(tweet_text):
-    match = re.search("(?P<url>https?://[^\s]+)", tweet_text)
-    if (match != None):
-        return match.group("url")
-    else:
-        return None
+def extract_urls(tweet_text):
+    matches = re.finditer("(?P<url>https?://[^\s]+)", tweet_text)
+    return [match.group("url") for match in matches]
 
 """
 TODO
 Obtains the domain name from a url, excluding the protocol.
 """
-def get_domain(url):
-    data = urlparse(url)
-    netloc = data.netloc
-    return netloc.split('/')[2]
-
+def get_domains(url_list):
+    return [urlparse(url).netloc for url in url_list]
 
 """
 TODO

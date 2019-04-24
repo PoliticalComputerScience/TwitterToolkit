@@ -8,7 +8,7 @@
   "browser_action": {
    "default_icon": "pic.png"
   },
-  "permissions": ["http://*/*","https://*/*"],
+  "permissions": ["http://*/*","https://*/*", "tabs"],
 
    "content_scripts": [
   {
@@ -17,5 +17,8 @@
     "run_at": "document_end"
 
   }
-]
+  ],
+  "background": {
+    "scripts":["background.js"]
+  }
 }
