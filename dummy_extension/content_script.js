@@ -5,6 +5,11 @@ function score_tweets() {
         if (i == 0) {
             var t = $(this).find('.ProfileTweet-actionList'); //gets action button list
             var h = document.createElement("div");
+            /*$.get(chrome.extension.getURL('/button.html'), function(data) {
+                t.append(data);
+    // Or if you're using jQuery 1.8+:
+    // $($.parseHTML(data)).appendTo('body');
+});*/
             t.append(h);
             alert(t.children().length) //should be 5
 
