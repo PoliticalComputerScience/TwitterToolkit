@@ -1,6 +1,6 @@
 function score_tweets() {
     var i = 0;
-    alert("page has loaded");
+    //alert("page has loaded");
     $('.tweet').each(function(index){
         if (i == 0) {
             var t = $(this).find('.ProfileTweet-actionList'); //gets action button list
@@ -11,15 +11,23 @@ function score_tweets() {
     // $($.parseHTML(data)).appendTo('body');
 });*/
             t.append(h);
-            alert(t.children().length) //should be 5
+            //alert(t.children().length) //should be 5
 
             var text = $(this).find('.tweet-text').html(); //gets tweet text
             var xhr = new XMLHttpRequest(); //beginning an HTTP request
             xhr.open("GET", "http://127.0.0.1:5000/score?tweet=" + encodeURIComponent(text), true);
-            xhr.onreadystatechange = function() { // callback function
-                if (xhr.readyState == 4) {
+            xhr.onreadystatechange = function () {//onreadystatechange = function() { // callback function
+                if (xhr.readyState == 4 && xhr.status == 200) {
                     alert("received data from server");
-                    alert(xhr.responseText)//JSON.parse(xhr.responseText));
+                    alert(xhr.responseText);
+                    var str = xhr.responseText.replace(/'/g, '"');
+                    try {
+                        var obj = JSON.parse(str);
+                        alert("passed parse");
+                        alert(obj.domain);
+                    } catch(err) {
+                        alert(err.message + " in " + str);
+                    }
                 }
             }
             xhr.send(); // sends request
