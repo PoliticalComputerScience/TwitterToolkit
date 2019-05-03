@@ -3,6 +3,7 @@
 import requests
 from bs4 import BeautifulSoup
 import sqlite3
+from utils import *
 
 
 diction = dict()
@@ -38,7 +39,7 @@ def get_results(bias_name, bias_num, end_p):
         # print(score_soup.find("title"))
         source_name = str(score_soup.find("title"))[7: -31].replace("amp; ", " ")
 
-        domain_name = get_domain_name(score_soup, source_name)
+        domain_name = get_domains([get_domain_name(score_soup, source_name)])[0]
         if bias_name == "fake-news":
             diction[source_name] = scoreNode(bias_num, 0, domain_name)
         else:
@@ -151,17 +152,17 @@ get_results("fake-news", None, -54)
     # print("   bias: " + str(node.bias_num))
     # print("    fact_check: " + str(node.fact_check))
     # print("  domain name: " + node.domain_name)
-cursor.execute("CREATE TABLE scraped29 (source_name TEXT, domain_name TEXT, fact_check_score INTEGER, bias_score INTEGER)")
+cursor.execute("CREATE TABLE scraped31 (source_name TEXT, domain_name TEXT, fact_check_score INTEGER, bias_score INTEGER)")
 
 for ke in diction.keys():
     sour = ke
     dom = diction.get(ke).domain_name
     bi = diction.get(ke).bias_num
     fc = diction.get(ke).fact_check
-    cursor.execute("INSERT INTO scraped29 (source_name, domain_name, fact_check_score, bias_score) VALUES (?,?,?,?)", [sour, dom, fc, bi])
+    cursor.execute("INSERT INTO scraped31 (source_name, domain_name, fact_check_score, bias_score) VALUES (?,?,?,?)", [sour, dom, fc, bi])
 
 connection.commit()
-for row in connection.execute('SELECT * FROM scraped29'):
+for row in connection.execute('SELECT * FROM scraped31'):
     print(row)
 
 

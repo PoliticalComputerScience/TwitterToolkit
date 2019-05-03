@@ -14,7 +14,17 @@ TODO
 Obtains the domain name from a url, excluding the protocol.
 """
 def get_domains(url_list):
-    return [urlparse(url).netloc for url in url_list]
+    domains = []
+    for url in url_list:
+        if (url != None):
+            parsed = urlparse(url).netloc
+            toks = parsed.split('.')
+            if (len(toks) == 3):
+                toks.pop(0)
+            domains.append(toks[0] + '.' + toks[1])
+        else:
+            domains.append(url)
+    return domains
 
 """
 TODO
