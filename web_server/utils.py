@@ -51,4 +51,4 @@ def sentiment_negative(tweet):
 Produces a manipulation score for a tweet using sentiment analysis.
 """
 def sentiment_manipulation(tweet):
-    return 1
+    return 0
